@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 %define atlaslibs -lblas -llapack
 # Version found in <libname>/Doc/ChangeLog
 %define amd_version 2.4.0
@@ -55,7 +57,7 @@
 
 Name:           suitesparse
 Version:        4.4.4
-Release:        %mkrel 1
+Release:        1
 Summary:        A collection of sparse matrix libraries
 
 Group:          Development/C
@@ -105,46 +107,46 @@ Summary:        Development headers for SuiteSparse
 Group:          Development/C
 Requires:       suitesparse
 Provides:       libsuitesparse-devel = %{version}-%{release}
-Provides:       suitesparse-common-devel = 0:%{version}-%{release}
-Obsoletes:      suitesparse-common-devel < 0:4.2.1-5
+Provides:       suitesparse-common-devel = %{version}-%{release}
+Obsoletes:      suitesparse-common-devel < 4.2.1-5
 
 Provides:       libamd-devel = %{version}-%{release}
-Provides:       %{mklibname -d amd} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d amd} < 0:2.3.1-5
+Provides:       %{mklibname -d amd} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d amd} < 1:2.3.1-5
 
 Provides:       libbtf-devel = %{version}-%{release}
 
 Provides:       libcamd-devel = %{version}-%{release}
-Provides:       %{mklibname -d camd} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d camd} < 0:2.3.1-5
+Provides:       %{mklibname -d camd} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d camd} < 1:2.3.1-5
 
 Provides:       libccolamd-devel = %{version}-%{release}
-Provides:       %{mklibname -d ccolamd} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d ccolamd} < 0:2.8.0-5
+Provides:       %{mklibname -d ccolamd} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d ccolamd} < 1:2.8.0-5
 
 Provides:       libcholmod-devel = %{version}-%{release}
-Provides:       %{mklibname -d cholmod} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d cholmod} < 0:2.1.2-5
+Provides:       %{mklibname -d cholmod} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d cholmod} < 1:2.1.2-5
 
 Provides:       libcolamd-devel = %{version}-%{release}
-Provides:       %{mklibname -d colamd} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d colamd} < 0:2.8.0-5
+Provides:       %{mklibname -d colamd} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-5
 
 #%%if 0%{?enable_csparse:0}
 #Provides:       %{mklibname -d csparse} = %{version}-%{release}
 #Obsoletes:      %{mklibname -d csparse} < %{version}-%{release}
 #%%endif
 Provides:       libcxsparse-devel = %{version}-%{release}
-Provides:       %{mklibname -d cxsparse} = 0:%{version}-%{release}
-Obsoletes:      %{mklibname -d cxsparse} < 0:3.1.2-5
+Provides:       %{mklibname -d cxsparse} = 1:%{version}-%{release}
+Obsoletes:      %{mklibname -d cxsparse} < 1:3.1.3-5
 
 Provides:       libklu-devel = %{version}-%{release}
 
 Provides:       libldl-devel = %{version}-%{release}
 
 Provides:       libumfpack-devel = 5.6.1-5
-Provides:       %{mklibname -d umfpack} = 5.6.1-5
-Obsoletes:      %{mklibname -d umfpack} < 5.6.1-5
+Provides:       %{mklibname -d umfpack} = 1:5.6.1-5
+Obsoletes:      %{mklibname -d umfpack} < 1:5.6.1-5
 
 Provides:       libspqr-devel = %{version}-%{release}
 
@@ -157,7 +159,7 @@ applications which use the suitesparse libraries.
 
 %package doc
 Summary:        Documentation files for SuiteSparse
-Group:          Documentation
+Group:          Development/C
 BuildArch:      noarch
 
 %description doc
@@ -169,8 +171,8 @@ Summary:	Configuration file for SuiteSparse packages
 Group:		Development/C
 
 %description -n %{suitesparseconfig_packagename}
-SuiteSparse_config provides a configuration header file needed by most of the other 
-packages in SuiteSparse.
+SuiteSparse_config provides a configuration header file needed by most of 
+the other packages in SuiteSparse.
 
 %package -n %{amd_packagename}
 Summary:	Routines for permuting sparse matricies prior to factorization
@@ -299,14 +301,22 @@ Summary:	Sparse LU factorization, for circuit simulation
 Group:		Development/C
 
 %description -n %{klu_packagename}
-KLU is a sparse LU factorization algorithm well-suited for use in circuit simulation.
+KLU is a sparse LU factorization algorithm well-suited for use in
+circuit simulation.
 
 %package -n %{ldl_packagename}
 Summary:	A consise sparse Cholesky factorization package
 Group:		Development/C
 
 %description -n %{ldl_packagename}
-LDL is a set of concise routines for factorizing symmetric positive-definite sparse matrices, with some applicability to symmetric indefinite matrices. Its primary purpose is to illustrate much of the basic theory of sparse matrix algorithms in as concise a code as possible, including an elegant new method of sparse symmetric factorization that computes the factorization row-by-row but stores it column-by-column. The entire symbolic and numeric factorization consists of a total of only 49 lines of code. The package is written in C, and includes a MATLAB interface. 
+LDL is a set of concise routines for factorizing symmetric positive-definite 
+sparse matrices, with some applicability to symmetric indefinite matrices. 
+Its primary purpose is to illustrate much of the basic theory of sparse matrix 
+algorithms in as concise a code as possible, including an elegant new method 
+of sparse symmetric factorization that computes the factorization row-by-row 
+but stores it column-by-column. The entire symbolic and numeric factorization 
+consists of a total of only 49 lines of code. The package is written in C,
+and includes a MATLAB interface. 
 
 %package -n %{umfpack_packagename}
 Summary:	Routines for solving unsymmetric sparse linear systems
@@ -331,14 +341,22 @@ Summary:	Multithreaded multifrontal sparse QR factorization
 Group:		Development/C
 
 %description -n %{spqr_packagename}
-SuiteSparseQR is an implementation of the multifrontal sparse QR factorization method. Parallelism is exploited both in the BLAS and across different frontal matrices using Intel's Threading Building Blocks, a shared-memory programming model for modern multicore architectures. It can obtain a substantial fraction of the theoretical peak performance of a multicore computer. The package is written in C++ with user interfaces for MATLAB, C, and C++.
+SuiteSparseQR is an implementation of the multifrontal sparse QR factorization
+method. Parallelism is exploited both in the BLAS and across different frontal
+matrices using Intel's Threading Building Blocks, a shared-memory programming
+model for modern multicore architectures. It can obtain a substantial fraction
+of the theoretical peak performance of a multicore computer. The package is
+written in C++ with user interfaces for MATLAB, C, and C++.
 
 %package -n %{rbio_packagename}
-Summary:	a MATLAB toolbox for reading/writing sparse matrices in Rutherford/Boeing format
+Summary:	MATLAB toolbox for reading/writing sparse matrices in Rutherford/Boeing
 Group:		Development/C
 
 %description -n %{rbio_packagename}
-RBio - MATLAB toolbox for reading/writing sparse matrices in the Rutherford/Boeing format, and for reading/writing problems in the UF Sparse Matrix Collection from/to a set of files in a directory. Version 2.0 is written in C. Older versions are in Fortran. 
+RBio - MATLAB toolbox for reading/writing sparse matrices in the 
+Rutherford/Boeing format, and for reading/writing problems in the UF Sparse 
+Matrix Collection from/to a set of files in a directory. 
+Version 2.0 is written in C. Older versions are in Fortran. 
 
 %prep
 %setup -q -n SuiteSparse
