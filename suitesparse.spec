@@ -106,29 +106,28 @@ matrices.  The package includes the following libraries:
 Summary:        Development headers for SuiteSparse
 Group:          Development/C
 Requires:       suitesparse
-Provides:       libsuitesparse-devel = %{version}-%{release}
 Provides:       suitesparse-common-devel = %{version}-%{release}
 Obsoletes:      suitesparse-common-devel < 4.2.1-5
 
-Provides:       libamd-devel = %{version}-%{release}
+Provides:       amd-devel = %{version}-%{release}
 Provides:       %{mklibname -d amd} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d amd} < 1:2.3.1-5
 
-Provides:       libbtf-devel = %{version}-%{release}
+Provides:       btf-devel = %{version}-%{release}
 
-Provides:       libcamd-devel = %{version}-%{release}
+Provides:       amd-devel = %{version}-%{release}
 Provides:       %{mklibname -d camd} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d camd} < 1:2.3.1-5
 
-Provides:       libccolamd-devel = %{version}-%{release}
+Provides:       ccolamd-devel = %{version}-%{release}
 Provides:       %{mklibname -d ccolamd} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d ccolamd} < 1:2.8.0-5
 
-Provides:       libcholmod-devel = %{version}-%{release}
+Provides:       cholmod-devel = %{version}-%{release}
 Provides:       %{mklibname -d cholmod} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d cholmod} < 1:2.1.2-5
 
-Provides:       libcolamd-devel = %{version}-%{release}
+Provides:       colamd-devel = %{version}-%{release}
 Provides:       %{mklibname -d colamd} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-5
 
@@ -136,15 +135,15 @@ Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-5
 #Provides:       %{mklibname -d csparse} = %{version}-%{release}
 #Obsoletes:      %{mklibname -d csparse} < %{version}-%{release}
 #%%endif
-Provides:       libcxsparse-devel = %{version}-%{release}
+Provides:       cxsparse-devel = %{version}-%{release}
 Provides:       %{mklibname -d cxsparse} = 1:%{version}-%{release}
 Obsoletes:      %{mklibname -d cxsparse} < 1:3.1.3-5
 
-Provides:       libklu-devel = %{version}-%{release}
+Provides:       klu-devel = %{version}-%{release}
 
-Provides:       libldl-devel = %{version}-%{release}
+Provides:       ldl-devel = %{version}-%{release}
 
-Provides:       libumfpack-devel = 5.6.1-5
+Provides:       umfpack-devel = 5.6.1-5
 Provides:       %{mklibname -d umfpack} = 1:5.6.1-5
 Obsoletes:      %{mklibname -d umfpack} < 1:5.6.1-5
 
