@@ -107,29 +107,29 @@ Summary:        Development headers for SuiteSparse
 Group:          Development/C
 Requires:       suitesparse
 Provides:       suitesparse-common-devel = %{version}-%{release}
-Obsoletes:      suitesparse-common-devel < 4.2.1-5
+Obsoletes:      suitesparse-common-devel < 4.2.1-10
 
 Provides:       amd-devel = %{version}-%{release}
 Provides:       %{mklibname -d amd} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d amd} < 1:2.3.1-5
+Obsoletes:      %{mklibname -d amd} < 1:2.3.1-10
 
 Provides:       btf-devel = %{version}-%{release}
 
 Provides:       amd-devel = %{version}-%{release}
 Provides:       %{mklibname -d camd} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d camd} < 1:2.3.1-5
+Obsoletes:      %{mklibname -d camd} < 1:2.3.1-10
 
 Provides:       ccolamd-devel = %{version}-%{release}
 Provides:       %{mklibname -d ccolamd} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d ccolamd} < 1:2.8.0-5
+Obsoletes:      %{mklibname -d ccolamd} < 1:2.8.0-10
 
 Provides:       cholmod-devel = %{version}-%{release}
 Provides:       %{mklibname -d cholmod} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d cholmod} < 1:2.1.2-5
+Obsoletes:      %{mklibname -d cholmod} < 1:2.1.2-10
 
 Provides:       colamd-devel = %{version}-%{release}
 Provides:       %{mklibname -d colamd} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-5
+Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-10
 
 #%%if 0%{?enable_csparse:0}
 #Provides:       %{mklibname -d csparse} = %{version}-%{release}
@@ -137,7 +137,7 @@ Obsoletes:      %{mklibname -d colamd} < 1:2.8.0-5
 #%%endif
 Provides:       cxsparse-devel = %{version}-%{release}
 Provides:       %{mklibname -d cxsparse} = 1:%{version}-%{release}
-Obsoletes:      %{mklibname -d cxsparse} < 1:3.1.3-5
+Obsoletes:      %{mklibname -d cxsparse} < 1:3.1.3-10
 
 Provides:       klu-devel = %{version}-%{release}
 
@@ -145,7 +145,7 @@ Provides:       ldl-devel = %{version}-%{release}
 
 Provides:       umfpack-devel = 5.6.1-5
 Provides:       %{mklibname -d umfpack} = 1:5.6.1-5
-Obsoletes:      %{mklibname -d umfpack} < 1:5.6.1-5
+Obsoletes:      %{mklibname -d umfpack} < 1:5.6.1-10
 
 Provides:       libspqr-devel = %{version}-%{release}
 
