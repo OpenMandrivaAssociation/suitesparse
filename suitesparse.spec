@@ -57,7 +57,7 @@
 
 Name:           suitesparse
 Version:        4.4.4
-Release:        2
+Release:        3
 Summary:        A collection of sparse matrix libraries
 
 Group:          Development/C
