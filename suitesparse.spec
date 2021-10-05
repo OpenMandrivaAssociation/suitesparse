@@ -1,5 +1,3 @@
-%define debug_package %{nil}
-
 %define atlaslibs -lblas -llapack
 # Version found in <libname>/Doc/ChangeLog
 %define amd_version 2.4.0
@@ -56,8 +54,8 @@
 #%%define enable_csparse 0
 
 Name:           suitesparse
-Version:        4.4.4
-Release:        3
+Version:        4.4.6
+Release:        1
 Summary:        A collection of sparse matrix libraries
 
 Group:          Development/C
@@ -358,7 +356,7 @@ Matrix Collection from/to a set of files in a directory.
 Version 2.0 is written in C. Older versions are in Fortran. 
 
 %prep
-%setup -q -n SuiteSparse
+%autosetup -n SuiteSparse -p1
 
 %build
 
@@ -366,10 +364,10 @@ mkdir -p Doc/{AMD,BTF,CAMD,CCOLAMD,CHOLMOD,COLAMD,KLU,LDL,UMFPACK,SPQR,RBio} Lib
 
 # SuiteSparse_config needs to come first
 pushd SuiteSparse_config
-  %make
+  %make_build CFLAGS="%{optflags} -fPIC"
   ar x libsuitesparseconfig.a
   pushd ../Lib
-    gcc -shared -Wl,-soname,libsuitesparseconfig.so.%{suitesparseconfig_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libsuitesparseconfig.so.%{suitesparseconfig_version_major} -lm -o \
         libsuitesparseconfig.so.%{suitesparseconfig_version} ../SuiteSparse_config/*.o
     %__ln_s -f libsuitesparseconfig.so.%{suitesparseconfig_version} libsuitesparseconfig.so.%{suitesparseconfig_version_major}
     %__ln_s -f libsuitesparseconfig.so.%{suitesparseconfig_version} libsuitesparseconfig.so
@@ -380,10 +378,10 @@ popd
 
 pushd AMD
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libamd.so.%{amd_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libamd.so.%{amd_version_major} -o \
         libamd.so.%{amd_version} ../AMD/Lib/*.o -lm
     %__ln_s -f libamd.so.%{amd_version} libamd.so.%{amd_version_major}
     %__ln_s -f libamd.so.%{amd_version} libamd.so
@@ -395,10 +393,10 @@ popd
 
 pushd BTF
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libbtf.so.%{btf_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libbtf.so.%{btf_version_major} -o \
         libbtf.so.%{btf_version} ../BTF/Lib/*.o
     %__ln_s -f libbtf.so.%{btf_version} libbtf.so.%{btf_version_major}
     %__ln_s -f libbtf.so.%{btf_version} libbtf.so
@@ -410,10 +408,10 @@ popd
 
 pushd CAMD
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libcamd.so.%{camd_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libcamd.so.%{camd_version_major} -o \
         libcamd.so.%{camd_version} ../CAMD/Lib/*.o -lm
     %__ln_s -f libcamd.so.%{camd_version} libcamd.so.%{camd_version_major}
     %__ln_s -f libcamd.so.%{camd_version} libcamd.so
@@ -425,10 +423,10 @@ popd
 
 pushd CCOLAMD
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libccolamd.so.%{ccolamd_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libccolamd.so.%{ccolamd_version_major} -o \
         libccolamd.so.%{ccolamd_version} ../CCOLAMD/Lib/*.o -lm
     %__ln_s -f libccolamd.so.%{ccolamd_version} libccolamd.so.%{ccolamd_version_major}
     %__ln_s -f libccolamd.so.%{ccolamd_version} libccolamd.so
@@ -440,10 +438,10 @@ popd
 
 pushd COLAMD
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libcolamd.so.%{colamd_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libcolamd.so.%{colamd_version_major} -o \
         libcolamd.so.%{colamd_version} ../COLAMD/Lib/*.o -lm
     %__ln_s -f libcolamd.so.%{colamd_version} libcolamd.so.%{colamd_version_major}
     %__ln_s -f libcolamd.so.%{colamd_version} libcolamd.so
@@ -454,16 +452,16 @@ pushd COLAMD
 popd
 
 %if "%{?enable_metis}" == "1"
-CHOLMOD_FLAGS="$RPM_OPT_FLAGS -I%{_includedir}/metis -fPIC"
+CHOLMOD_FLAGS="%{optflags} -I%{_includedir}/metis -fPIC"
 %else
-CHOLMOD_FLAGS="$RPM_OPT_FLAGS -DNPARTITION -fPIC"
+CHOLMOD_FLAGS="%{optflags} -DNPARTITION -fPIC"
 %endif
 pushd CHOLMOD
   pushd Lib
-    %make
+    %make_build CFLAGS="$CHOLMOD_FLAGS"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libcholmod.so.%{cholmod_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libcholmod.so.%{cholmod_version_major} -o \
         libcholmod.so.%{cholmod_version} ../CHOLMOD/Lib/*.o \
         -L%{_libdir}/atlas %{atlaslibs} \
         libamd.so.%{amd_version_major} \
@@ -486,11 +484,11 @@ popd
 #%%if 0%{?enable_csparse:0}
 #pushd CSparse
 #  pushd Source
-#    make CFLAGS="$RPM_OPT_FLAGS -fPIC"
+#    %make_build CFLAGS="%{optflags} -fPIC"
 #    cp -p cs.h ../../Include
 #  popd
 #  pushd ../Lib
-#    gcc -shared -Wl,-soname,libcsparse.so.%{csparse_version_major} -o \
+#    %{__cc} -shared %{build_ldflags} -Wl,-soname,libcsparse.so.%{csparse_version_major} -o \
 #        libcsparse.so.%{csparse_version} ../CSparse/Source/*.o -lm
 #    %__ln_s libcsparse.so.%{csparse_version} libcsparse.so.%{csparse_version_major}
 #    %__ln_s libcsparse.so.%{csparse_version} libcsparse.so
@@ -503,10 +501,10 @@ popd
 
 pushd CXSparse
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libcxsparse.so.%{cxsparse_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libcxsparse.so.%{cxsparse_version_major} -o \
         libcxsparse.so.%{cxsparse_version} ../CXSparse/Lib/*.o -lm
     %__ln_s -f libcxsparse.so.%{cxsparse_version} libcxsparse.so.%{cxsparse_version_major}
     %__ln_s -f libcxsparse.so.%{cxsparse_version} libcxsparse.so
@@ -519,10 +517,10 @@ popd
 
 pushd KLU
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libklu.so.%{klu_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libklu.so.%{klu_version_major} -o \
         libklu.so.%{klu_version} ../KLU/Lib/*.o \
         libamd.so.%{amd_version_major} libcolamd.so.%{colamd_version_major} \
         libbtf.so.%{btf_version_major} libcholmod.so.%{cholmod_version_major} \
@@ -537,10 +535,10 @@ popd
 
 pushd LDL
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libldl.so.%{ldl_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libldl.so.%{ldl_version_major} -o \
         libldl.so.%{ldl_version} ../LDL/Lib/*.o
     %__ln_s -f libldl.so.%{ldl_version} libldl.so.%{ldl_version_major}
     %__ln_s -f libldl.so.%{ldl_version} libldl.so
@@ -552,10 +550,10 @@ popd
 
 pushd UMFPACK
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,libumfpack.so.%{umfpack_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,libumfpack.so.%{umfpack_version_major} -o \
         libumfpack.so.%{umfpack_version} ../UMFPACK/Lib/*.o \
         -L%{_libdir}/atlas %{atlaslibs} \
         libamd.so.%{amd_version_major} \
@@ -571,10 +569,10 @@ popd
 
 pushd SPQR
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    g++ -shared -Wl,-soname,libspqr.so.%{spqr_version_major} -o \
+    %{__cxx} -shared %{build_ldflags} -Wl,-soname,libspqr.so.%{spqr_version_major} -o \
         libspqr.so.%{spqr_version} ../SPQR/Lib/*.o \
         -L%{_libdir}/atlas -L%{_libdir} %{atlaslibs} \
         -ltbb -ltbbmalloc \
@@ -591,10 +589,10 @@ popd
 
 pushd RBio
   pushd Lib
-    %make
+    %make_build CFLAGS="%{optflags} -fPIC"
   popd
   pushd ../Lib
-    gcc -shared -Wl,-soname,librbio.so.%{rbio_version_major} -o \
+    %{__cc} -shared %{build_ldflags} -Wl,-soname,librbio.so.%{rbio_version_major} -o \
         librbio.so.%{rbio_version} ../RBio/Lib/*.o \
         libsuitesparseconfig.so.%{suitesparseconfig_version_major}
     %__ln_s -f librbio.so.%{rbio_version} librbio.so.%{rbio_version_major}
@@ -606,8 +604,8 @@ pushd RBio
 popd
 
 %install
-%__install -d -m 755 %{buildroot}%{_libdir}
-%__install -d -m 755 %{buildroot}%{_includedir}/%{name}
+install -d -m 755 %{buildroot}%{_libdir}
+install -d -m 755 %{buildroot}%{_includedir}/%{name}
 
 cp -pd Lib/*.so* %{buildroot}%{_libdir}/
 cp -pd Include/*.h* %{buildroot}%{_includedir}/suitesparse/
@@ -665,67 +663,3 @@ cp -pd Include/*.h* %{buildroot}%{_includedir}/suitesparse/
 
 %files -n %{rbio_packagename}
 %{_libdir}/librbio.so.%{rbio_version_major}*
-
-
-
-%changelog
-* Wed Jul 01 2015 joequant <joequant> 4.4.4-1.mga6
-+ Revision: 849241
-- upgrade to 4.4.4
-
-* Wed Oct 15 2014 umeabot <umeabot> 4.3.1-3.mga6
-+ Revision: 741242
-- Second Mageia 5 Mass Rebuild
-
-* Tue Sep 16 2014 umeabot <umeabot> 4.3.1-2.mga5
-+ Revision: 689606
-- Mageia 5 Mass Rebuild
-
-* Wed Aug 27 2014 grenoya <grenoya> 4.3.1-1.mga5
-+ Revision: 668849
-- new version 4.3.1
-
-* Tue Oct 22 2013 umeabot <umeabot> 4.2.1-8.mga4
-+ Revision: 545763
-- Mageia 4 Mass Rebuild
-
-* Wed Oct 16 2013 dmorgan <dmorgan> 4.2.1-7.mga4
-+ Revision: 501785
-- Rebuild to fix symlinks
-
-* Wed Oct 16 2013 grenoya <grenoya> 4.2.1-6.mga4
-+ Revision: 501757
-- fix symbolic links
-
-* Wed Oct 16 2013 grenoya <grenoya> 4.2.1-5.mga4
-+ Revision: 501525
-- fix Obsoletes to upgrade from mga1 and mga2 packages
-
-* Tue Oct 15 2013 grenoya <grenoya> 4.2.1-4.mga4
-+ Revision: 501248
-- add Obsoletes/Provides for lib that already exists in mga
-- add a require to the main package (task-ish) in the devel
-
-* Tue Oct 15 2013 grenoya <grenoya> 4.2.1-3.mga4
-+ Revision: 501100
-- fix %%files and Obsoltes/Provides for -devel
-- global srpm for all the SuiteSparse familly packages
-- rename suitesparse-common-devel in suitesparse (global package)
-
-* Mon Jan 14 2013 umeabot <umeabot> 4.0.2-2.mga3
-+ Revision: 383732
-- Mass Rebuild - https://wiki.mageia.org/en/Feature:Mageia3MassRebuild
-
-* Sat Sep 22 2012 grenoya <grenoya> 4.0.2-1.mga3
-+ Revision: 296577
-- new version 4.0.2
-
-* Sat Jun 18 2011 grenoya <grenoya> 3.6.1-1.mga2
-+ Revision: 109394
-- update sources
-- remove old obsoletes
-
-* Sun Mar 13 2011 grenoya <grenoya> 3.6.0-1.mga1
-+ Revision: 70580
-- imported package suitesparse-common-devel
-
