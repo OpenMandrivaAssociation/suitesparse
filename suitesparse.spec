@@ -383,7 +383,7 @@ pushd AMD
   popd
   pushd ../Lib
     %{__cc} -shared %{build_ldflags} -Wl,-soname,libamd.so.%{amd_version_major} -o \
-        libamd.so.%{amd_version} ../AMD/Lib/*.o -lm -lsuitesparseconfig
+        libamd.so.%{amd_version} ../AMD/Lib/*.o -lm -L../Lib -lsuitesparseconfig
     %__ln_s -f libamd.so.%{amd_version} libamd.so.%{amd_version_major}
     %__ln_s -f libamd.so.%{amd_version} libamd.so
     cp -p ../AMD/Lib/*.a ./
@@ -413,7 +413,7 @@ pushd CAMD
   popd
   pushd ../Lib
     %{__cc} -shared %{build_ldflags} -Wl,-soname,libcamd.so.%{camd_version_major} -o \
-        libcamd.so.%{camd_version} ../CAMD/Lib/*.o -lm -lsuitesparseconfig
+        libcamd.so.%{camd_version} ../CAMD/Lib/*.o -lm -L../Lib -lsuitesparseconfig
     %__ln_s -f libcamd.so.%{camd_version} libcamd.so.%{camd_version_major}
     %__ln_s -f libcamd.so.%{camd_version} libcamd.so
     cp -p ../CAMD/Lib/*.a ./
@@ -428,7 +428,7 @@ pushd CCOLAMD
   popd
   pushd ../Lib
     %{__cc} -shared %{build_ldflags} -Wl,-soname,libccolamd.so.%{ccolamd_version_major} -o \
-        libccolamd.so.%{ccolamd_version} ../CCOLAMD/Lib/*.o -lm -lsuitesparseconfig
+        libccolamd.so.%{ccolamd_version} ../CCOLAMD/Lib/*.o -lm -L../Lib -lsuitesparseconfig
     %__ln_s -f libccolamd.so.%{ccolamd_version} libccolamd.so.%{ccolamd_version_major}
     %__ln_s -f libccolamd.so.%{ccolamd_version} libccolamd.so
     cp -p ../CCOLAMD/Lib/*.a ./
@@ -443,7 +443,7 @@ pushd COLAMD
   popd
   pushd ../Lib
     %{__cc} -shared %{build_ldflags} -Wl,-soname,libcolamd.so.%{colamd_version_major} -o \
-        libcolamd.so.%{colamd_version} ../COLAMD/Lib/*.o -lm -lsuitesparseconfig
+        libcolamd.so.%{colamd_version} ../COLAMD/Lib/*.o -lm -L../Lib -lsuitesparseconfig
     %__ln_s -f libcolamd.so.%{colamd_version} libcolamd.so.%{colamd_version_major}
     %__ln_s -f libcolamd.so.%{colamd_version} libcolamd.so
     cp -p ../COLAMD/Lib/*.a ./
@@ -468,7 +468,7 @@ pushd CHOLMOD
         libamd.so.%{amd_version_major} \
         libcamd.so.%{camd_version_major} libcolamd.so.%{colamd_version_major} \
         libccolamd.so.%{ccolamd_version_major} \
-        libsuitesparseconfig.so.%{suitesparseconfig_version_major} -lm -lsuitesparseconfig
+        libsuitesparseconfig.so.%{suitesparseconfig_version_major} -lm -L../Lib -lsuitesparseconfig
     %__ln_s -f libcholmod.so.%{cholmod_version} libcholmod.so.%{cholmod_version_major}
     %__ln_s -f libcholmod.so.%{cholmod_version} libcholmod.so
     cp -p ../CHOLMOD/Lib/*.a ./
