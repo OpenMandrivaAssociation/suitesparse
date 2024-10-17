@@ -61,7 +61,7 @@ Summary:        A collection of sparse matrix libraries
 
 Group:          Development/C
 License:        LGPLv2+ and GPLv2+
-URL:            http://faculty.cse.tamu.edu/davis/suitesparse.html
+URL:            https://faculty.cse.tamu.edu/davis/suitesparse.html
 Source0:        http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-%{version}.tar.gz
 
 BuildRequires:  blas-devel
