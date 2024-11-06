@@ -1,0 +1,15 @@
+--- a/LAGraph/CMakeLists.txt
++++ b/LAGraph/CMakeLists.txt
+@@ -362,6 +362,12 @@ if ( NOT MSVC )
+             list ( APPEND LAGRAPH_STATIC_LIBS "m" )
+         endif ( )
+     endif ( )
++    if ( BUILD_SHAREDC_LIBS )
++        if ( NOT NO_LIBM )
++		list ( APPEND LAGRAPH_STATIC_LIBS "m" )
++        endif ( )
++    endif ( )
++
+     # This might be something like:
+     #   /usr/lib/libgomp.so;/usr/lib/libpthread.a;m
+     # convert to -l flags for pkg-config, i.e.: "-lgomp -lpthread -lm"
