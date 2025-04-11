@@ -50,7 +50,7 @@
 %global gpuqrengine_libname %mklibname gpuqrengine
 %global gpuqrengine_devname %mklibname gpuqrengine -d
 
-%global graphblas_version_major 9
+%global graphblas_version_major 10
 %global graphblas_libname %mklibname graphblas
 %global graphblas_devname %mklibname graphblas -d
 
@@ -141,7 +141,7 @@
 %global blaslib flexiblas
 
 Name:           suitesparse
-Version:        7.8.3
+Version:        7.10.1
 Release:        1
 Summary:        A collection of sparse matrix libraries
 
