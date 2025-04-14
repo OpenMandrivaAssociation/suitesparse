@@ -141,7 +141,7 @@
 %global blaslib flexiblas
 
 Name:           suitesparse
-Version:        7.10.1
+Version:        7.10.2
 Release:        1
 Summary:        A collection of sparse matrix libraries
 
