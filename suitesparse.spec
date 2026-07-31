@@ -141,7 +141,7 @@
 %global blaslib flexiblas
 
 Name:           suitesparse
-Version:        7.10.2
+Version:        7.12.3
 Release:        1
 Summary:        A collection of sparse matrix libraries
 
@@ -772,7 +772,7 @@ syllables, "Umph Pack"; it is not "You Em Ef Pack".
 #---------------------------------------------------------------------------
 
 %prep
-%autosetup -n SuiteSparse-%{version} -p1
+%autosetup -n SuiteSparse-7.12.3 -p1
 
 # remove bundled
 %if %{with system_metis}
